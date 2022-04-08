@@ -23,4 +23,16 @@ class Login extends CI_Controller
     {
         $this->load->view('login');
     }
+    public function LoginUser()
+    {
+        $auth = $this->Model_auth->cek_login();
+        if ($auth == FALSE) {
+            $this->session->set_flashdata('pesan', '<div style="justify-content:center;" class="text-center alert alert-danger alert-dismissible fade show" role="alert">Password Anda Salah!</div>');
+            redirect('Login');
+        } else {
+            $this->session->set_userdata('username', $auth->username);
+            $this->session->set_userdata('id_user', $auth->id_user);
+            redirect('DataPegawai');
+        }
+    }
 }
