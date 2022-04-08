@@ -21,9 +21,9 @@ class DataPasien extends CI_Controller
      */
     public function index()
     {
+
         $data['pasien'] = $this->Model_admin->getpasien()->result_array();
         $data['tanggal'] = $this->Model_admin->getDateChecking()->result_array();
-
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('datapasien', $data);

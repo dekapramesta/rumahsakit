@@ -26,7 +26,7 @@
                                             <th>
                                                 #
                                             </th>
-                                            <th>No RM</th>
+                                            <th>No Identitas</th>
                                             <th>Nama Pasien</th>
                                             <th>Alamat</th>
                                             <th>Gender</th>
@@ -52,21 +52,34 @@
 
                                             foreach ($tanggal as $tgl) {
                                                 if ($ps['id_pasien'] == $tgl['id_pasien']) {
-                                                    $cok = $tgl['tgl_periksa'];
+                                                    $id_akhir = $tgl['id_pasien'];
+                                                    $tgl_akhir = $tgl['tgl_periksa'];
                                                 }
                                             }
                                             ?>
 
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $ps['id_rm'] ?></td>
+                                                <td><?= $ps['nomor_identitas'] ?></td>
                                                 <td><?= $ps['nama_pasien'] ?></td>
                                                 <td><?= $ps['alamat'] ?></td>
                                                 <td><?= $ps['jenis_kelamin'] ?></td>
                                                 <td><?= $ps['tgl_lahir'] ?></td>
                                                 <td><?= $ps['agama'] ?></td>
-                                                <td><?= $ps['tgl_periksa'] ?></td>
-                                                <td><?= $cok ?></td>
+                                                <td><?php if ($ps['tgl_periksa'] == null) {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } else {
+                                                        echo $ps['tgl_periksa'];
+                                                    } ?></td>
+                                                <td><?php if ($ps['id_pasien'] == $id_akhir) {
+                                                        if (@$tgl_akhir == null) {
+                                                            echo "Belum Melakukan Kunjungan";
+                                                        } else {
+                                                            echo $tgl_akhir;
+                                                        }
+                                                    } else {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } ?></td>
                                                 <td class="text-center">
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>

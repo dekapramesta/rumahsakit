@@ -11,9 +11,7 @@
                                         <h4>Data Kunjungan</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <button onclick="" type="button" class="btn btn-primary" href="">Tambah Data</button>
-
-
+                                        <a class="btn btn-primary" href="<?= base_url('DataKunjungan/TambahKunjungan') ?>">Tambah Data</a>
                                     </div>
                                 </div>
                             </div>
@@ -28,8 +26,7 @@
                                             </th>
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
-                                            <th>Tanggal Kunjungan Awal</th>
-                                            <th>Tanggal Kunjungan Akhir</th>
+                                            <th>Tanggal Kunjungan</th>
                                             <th>Lama Penyimapanan</th>
                                             <th>Jenis RM</th>
                                             <th>Aksi</th>
@@ -40,7 +37,6 @@
 
                                         <tr>
 
-                                            <td>1</td>
                                             <td>1</td>
                                             <td>1</td>
                                             <td>1</td>
