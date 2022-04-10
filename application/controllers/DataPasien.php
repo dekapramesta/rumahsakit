@@ -3,6 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class DataPasien extends CI_Controller
 {
+    public function __construct()
+    {
+
+        parent::__construct();
+        if ($this->session->userdata('level') == null) {
+            redirect("");
+        }
+        notifikasi_retensi();
+        status_retensi();
+        date_default_timezone_set('Asia/Jakarta');
+    }
 
     /**
      * Index Page for this controller.
@@ -21,10 +32,10 @@ class DataPasien extends CI_Controller
      */
     public function index()
     {
-
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
         $data['pasien'] = $this->Model_admin->getpasien()->result_array();
         $data['tanggal'] = $this->Model_admin->getDateChecking()->result_array();
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('datapasien', $data);
         $this->load->view('templates/footer');

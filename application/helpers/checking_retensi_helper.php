@@ -41,7 +41,7 @@ if (!function_exists('status_retensi')) {
         date_default_timezone_set('Asia/Jakarta');
         $CI    = &get_instance();
         $CI->load->database();
-        $data_primary = $CI->Model_admin->getpasien()->result_array();
+        $data_primary = $CI->Model_admin->getRekamMedis()->result_array();
         foreach ($data_primary as $dt) {
 
 
@@ -63,6 +63,27 @@ if (!function_exists('status_retensi')) {
         // echo $years;
     }
 }
+if (!function_exists('hitung_hari')) {
+
+    function hitung_hari($hari)
+
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+
+
+        $date1 = $hari;
+        $date2 = date('Y-m-d');
+
+        $diff = abs(strtotime($date2) - strtotime($date1));
+
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+        return $years . " Tahun, " . $months . " Bulan, " . $days . " Hari";
+    }
+}
 if (!function_exists('notifikasi_retensi')) {
 
     function notifikasi_retensi()
@@ -71,7 +92,7 @@ if (!function_exists('notifikasi_retensi')) {
         date_default_timezone_set('Asia/Jakarta');
         $CI    = &get_instance();
         $CI->load->database();
-        $data_primary = $CI->Model_admin->getpasien()->result_array();
+        $data_primary = $CI->Model_admin->getRekamMedis()->result_array();
         foreach ($data_primary as $dt) {
 
 
@@ -83,9 +104,17 @@ if (!function_exists('notifikasi_retensi')) {
             $years = floor($diff / (365 * 60 * 60 * 24));
             $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
             $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
-            echo "id = " . $dt['id_rm'] . "-" . $years . "-" . $months . '-' . $days . '</br>';
+            // echo "id = " . $dt['id_rm'] . "-" . $years . "-" . $months . '-' . $days . '</br>';
             if (($years == 4) && ($months == 11) && (29 > $days) && (20 < $days)) {
-                echo "id = " . $dt['id_rm'] . "</br>";
+                $cek_data = $CI->db->get_where('tb_notifikasi', array('id_rekammedis' => $dt['id_rm']))->row();
+                if ($cek_data == null) {
+                    $data_array = array(
+                        'id_rekammedis' => $dt['id_rm'],
+                        'Notif' => 'Rekam Medis Dengan Id ' . $dt['id_rm'] . ", Akan Diretensi",
+                        'status_notif' => 0
+                    );
+                    $CI->Model_admin->tambah_data($data_array, 'tb_notifikasi');
+                }
             }
 
             // echo $years;

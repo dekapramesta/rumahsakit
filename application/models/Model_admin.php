@@ -33,10 +33,20 @@ class Model_admin extends CI_Model
     }
     public function getRekamMedis()
     {
-        $this->db->select('*');
-        $this->db->from('tb_pasien');
-        $this->db->join('tb_rekammedis', 'tb_rekammedis.id_pasien=tb_pasien.id_pasien', 'left');
+        $this->db->select('tb_rekammedis.*,tb_pasien.*,tb_detail_rm.*,tb_file.nama_file');
+        $this->db->from('tb_rekammedis');
+        $this->db->join('tb_pasien', 'tb_pasien.id_pasien=tb_rekammedis.id_pasien', 'left');
         $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
+        $this->db->join('tb_file', 'tb_file.id_rm=tb_rekammedis.id_rm', 'left');
+        return $this->db->get();
+    }
+    public function getRetensi($sts)
+    {
+        $this->db->select('tb_rekammedis.*,tb_pasien.*,tb_detail_rm.*');
+        $this->db->from('tb_rekammedis');
+        $this->db->join('tb_pasien', 'tb_pasien.id_pasien=tb_rekammedis.id_pasien', 'left');
+        $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
+        $this->db->where('status_rm =', $sts);
         return $this->db->get();
     }
 }

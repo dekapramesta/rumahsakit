@@ -3,6 +3,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class DataPegawai extends CI_Controller
 {
+    public function __construct()
+    {
+
+        parent::__construct();
+        if ($this->session->userdata('level') != 2) {
+            redirect("");
+        }
+        notifikasi_retensi();
+        status_retensi();
+        date_default_timezone_set('Asia/Jakarta');
+    }
+
 
     /**
      * Index Page for this controller.
@@ -21,20 +33,26 @@ class DataPegawai extends CI_Controller
      */
     public function index()
     {
-        $this->load->view('templates/header');
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+        $data['pegawai'] = $this->db->get('tb_pegawai')->result_array();
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('datapegawai');
         $this->load->view('templates/footer');
     }
     public function TambahPegawai()
     {
-        $this->load->view('templates/header');
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('tambahpegawai');
         $this->load->view('templates/footer');
     }
     public function DaftarPegawai()
     {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+
         $this->form_validation->set_rules('username', 'username', 'required|is_unique[tb_user.username]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('confirm_password', 'Konfirmasi Password', 'required|matches[password]');
@@ -67,7 +85,7 @@ class DataPegawai extends CI_Controller
                 redirect('DataPegawai');
             }
         } else {
-            $this->load->view('templates/header');
+            $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('tambahpegawai');
             $this->load->view('templates/footer');

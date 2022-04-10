@@ -7,6 +7,11 @@ class DataKunjungan extends CI_Controller
     {
 
         parent::__construct();
+        if ($this->session->userdata('level') == null) {
+            redirect("");
+        }
+        notifikasi_retensi();
+        status_retensi();
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -27,15 +32,17 @@ class DataKunjungan extends CI_Controller
      */
     public function index()
     {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
         $data['Rekam'] = $this->Model_admin->getRekamMedis()->result_array();
-
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
-        $this->load->view('datakunjungan');
+        $this->load->view('datakunjungan', $data);
         $this->load->view('templates/footer');
     }
     public function TambahKunjungan()
     {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+
         $data['pasien'] = $this->db->get('tb_pasien')->result_array();
         $data['dokter'] = $this->db->get('tb_dokter')->result_array();
         $this->load->view('templates/header');
@@ -61,6 +68,28 @@ class DataKunjungan extends CI_Controller
             );
             $this->Model_admin->tambah_data($detail_rm, 'tb_detail_rm');
             redirect('DataKunjungan');
+        }
+    }
+    public function TambahScan()
+    {
+        $config['upload_path'] = './assets/scan';
+        $config['allowed_types'] = 'pdf';
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload('file_scan')) {
+            $file_scan = $this->upload->data('file_name');
+            $data = array(
+                'id_rm' => $this->input->post('id_rm'),
+                'nama_file' => $file_scan,
+            );
+            $this->Model_admin->Tambah_data($data, 'tb_file');
+            redirect('DataKunjungan');
+        } else {
+            $linkinto = base_url() . 'DataKunjungan';
+            echo "<script>
+				alert('Scan Gagal Upload');
+				window.location.href = '" . $linkinto . "';// your redirect path here
+				</script>";
         }
     }
 }

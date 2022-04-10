@@ -11,7 +11,7 @@
                                         <h4>Data Pegawai</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <button onclick="" type="button" class="btn btn-primary" href="">Tambah Data</button>
+                                        <a href="<?= base_url('DataPegawai/TambahPegawai') ?>" type="button" class="btn btn-primary" href="">Tambah Data</a>
 
 
                                     </div>
@@ -26,34 +26,38 @@
                                             <th>
                                                 #
                                             </th>
-                                            <th>Nama</th>
-                                            <th>Username</th>
-                                            <th>Pass</th>
-                                            <th>Hak Akses</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Alamat</th>
+                                            <th>No Hp</th>
+                                            <th>Email</th>
                                             <th>Aksi</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $no = 0;
+                                        foreach ($pegawai as $pgw) : $no++; ?>
 
-                                        <tr>
+                                            <tr>
 
 
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td class="text-center">
-                                                <div class="dropdown">
-                                                    <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
-                                                    <div class="dropdown-menu">
-                                                        <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                        <a href="" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                <td><?= $no; ?></td>
+
+                                                <td><?= $pgw['nama_lengkap'] ?></td>
+                                                <td><?= $pgw['alamat'] ?></td>
+                                                <td><?= $pgw['no_hp'] ?></td>
+                                                <td><?= $pgw['email'] ?></td>
+                                                <td class="text-center">
+                                                    <div class="dropdown">
+                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
+                                                        <div class="dropdown-menu">
+                                                            <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
+                                                            <a href="" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
 
 
                                     </tbody>

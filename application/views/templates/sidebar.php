@@ -6,7 +6,8 @@
         </div>
         <ul class="sidebar-menu">
             <li class="dropdown ">
-                <a href="index.html" class="nav-link "><i data-feather="home"></i><span>Home</span></a>
+                <a href="<?= base_url('Home') ?>" class="nav-link "><i data-feather="home"></i><span>Home</span></a>
+
 
             </li>
             <li class="dropdown ">
@@ -17,21 +18,24 @@
                 <a href="<?= base_url('DataKunjungan') ?>" class="nav-link "><i data-feather="calendar"></i><span>Data Kunjungan</span></a>
                 <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
             </li>
-            <li class="dropdown ">
-                <a href="<?= base_url('DataPegawai') ?>" class="nav-link "><i data-feather="users"></i><span>Data pegawai</span></a>
-                <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
-            </li>
-            <li class="dropdown ">
-                <a href="<?= base_url('LaporanRetensi') ?>" class="nav-link "><i data-feather="file"></i><span>Laporan Retensi</span></a>
-                <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
+            <?php if ($this->session->userdata('level') == 2) { ?>
+                <li class="dropdown ">
+                    <a href="<?= base_url('DataPegawai') ?>" class="nav-link "><i data-feather="users"></i><span>Data pegawai</span></a>
+                    <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
+                </li>
+            <?php } ?>
+
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Laporan Retensi</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="<?= base_url('LaporanRetensi') ?>">Aktif</a></li>
+                    <li><a class="nav-link" href="<?= base_url('LaporanRetensi/TidakAktif') ?>">Non-Aktif</a></li>
+                </ul>
             </li>
 
+
             <li class="dropdown ">
-                <a href="<?= base_url('Scan') ?>" class="nav-link "><i data-feather="minimize"></i><span>Scan</span></a>
-                <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
-            </li>
-            <li class="dropdown ">
-                <a href="index.html" class="nav-link "><i data-feather="log-out" style="color: red;"></i><span style="color: red;">Keluar</span></a>
+                <a href="<?= base_url('Home/Keluar') ?>" class="nav-link "><i data-feather="log-out" style="color: red;"></i><span style="color: red;">Keluar</span></a>
                 <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
             </li>
 

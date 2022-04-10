@@ -27,7 +27,9 @@
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
                                             <th>Tanggal Kunjungan</th>
-                                            <th>Lama Penyimapanan</th>
+                                            <th>Lama Penyimpanan</th>
+                                            <th>Keluhan</th>
+                                            <th>Diagnosa</th>
                                             <th>Jenis RM</th>
                                             <th>Aksi</th>
 
@@ -36,29 +38,71 @@
                                     <tbody>
 
                                         <tr>
-
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td class="text-center">
-                                                <div class="dropdown">
-                                                    <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
-                                                    <div class="dropdown-menu">
-                                                        <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                        <a href="" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                            <?php $no = 0;
+                                            foreach ($Rekam as $rkm) : $no++; ?>
+                                                <td></td>
+                                                <td><?= $rkm['id_rm'] ?></td>
+                                                <td><?= $rkm['nama_pasien'] ?></td>
+                                                <td><?= $rkm['tgl_periksa'] ?></td>
+                                                <td><?php if ($rkm['nama_file'] != null) {
+                                                        echo hitung_hari($rkm['tgl_periksa']);
+                                                    } else {
+                                                        echo "Belum Memasukan Scan";
+                                                    }  ?></td>
+                                                <td><?= $rkm['keluhan'] ?></td>
+                                                <td><?= $rkm['diagnosa'] ?></td>
+                                                <td><?= $rkm['status_rm'] ?></td>
+                                                <td class="text-center">
+                                                    <div class="dropdown">
+                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
+                                                        <div class="dropdown-menu">
+                                                            <a onclick="TambahScan(<?= $rkm['id_rm'] ?>)" class="dropdown-item has-icon"><i class="far fa-list-alt"></i> Tambah file scan</a>
+                                                            <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
+                                                            <a href="#" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
                                         </tr>
+                                    <?php endforeach ?>
 
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function TambahScan(i) {
+                $('#upload_scan').appendTo("body").modal('show');
+                document.getElementById('id_rm').value = i;
+            }
+        </script>
+        <div class="modal fade" id="upload_scan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah File Scan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?php echo base_url('DataKunjungan/TambahScan') ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="">File Scan</label><br>
+                                <input hidden type="text" id="id_rm" name="id_rm">
+                                <input type="file" name="file_scan">
+                                <!-- <input id="nisn" placeholder="NISN" type="text" name="nisn" class="form-control " required=""> -->
+                            </div>
+
+                            <div align="right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="submit" name="import" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
