@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Apr 2022 pada 05.09
+-- Waktu pembuatan: 10 Apr 2022 pada 09.36
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.2
 
@@ -40,11 +40,11 @@ CREATE TABLE `tb_detail_rm` (
 --
 
 INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `keluhan`, `diagnosa`, `tgl_periksa`) VALUES
-(1, 3, 'Pusing', 'Migrain', '2022-04-08'),
-(2, 4, 'Pegel', 'Pegel Linu', '2022-04-09'),
-(3, 5, 'Mencret', 'Tipes', '2022-04-03'),
-(4, 6, 'Muntah', 'Tipes', '2022-04-06'),
-(5, 7, 'Mbuh', 'Mbuh', '2022-04-14');
+(6, 15, 'Pusing', 'Migrain', '2017-04-10'),
+(7, 16, 'Sakit Peut', 'Maag', '2022-04-12'),
+(8, 17, 'Mencret', 'Wasir', '2022-04-08'),
+(9, 18, 'Pegel', 'Pegel Linu', '2022-04-21'),
+(10, 19, 'Tak tau', 'tak tau', '2022-04-08');
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,7 @@ INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `keluhan`, `diagnosa`, `tgl
 --
 
 CREATE TABLE `tb_dokter` (
-  `id_dokter` varchar(50) NOT NULL,
+  `id_dokter` int(11) NOT NULL,
   `nama_dokter` varchar(100) NOT NULL,
   `spesialis` varchar(100) NOT NULL,
   `alamat` text NOT NULL,
@@ -65,31 +65,48 @@ CREATE TABLE `tb_dokter` (
 --
 
 INSERT INTO `tb_dokter` (`id_dokter`, `nama_dokter`, `spesialis`, `alamat`, `no_telp`) VALUES
-('8de1a500-3663-457b-9a27-1644e0c17fa2', 'Dokter A', 'Penyakit Dalam', 'Pati', '088200110016'),
-('e6bfe5eb-02b5-4ec1-b7f7-ce2e41547700', 'Dr. Yudi saputra', 'Penyakit Kulit', 'Kudus', '081275121552');
+(1, 'Dokter A', 'Penyakit Dalam', 'Pati', '088200110016'),
+(2, 'Dr. Yudi saputra', 'Penyakit Kulit', 'Kudus', '081275121552');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_obat`
+-- Struktur dari tabel `tb_file`
 --
 
-CREATE TABLE `tb_obat` (
-  `id_obat` varchar(50) NOT NULL,
-  `nama_obat` varchar(100) NOT NULL,
-  `ket_obat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_file` (
+  `id_file` int(11) NOT NULL,
+  `id_rm` int(11) NOT NULL,
+  `nama_file` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_obat`
+-- Dumping data untuk tabel `tb_file`
 --
 
-INSERT INTO `tb_obat` (`id_obat`, `nama_obat`, `ket_obat`) VALUES
-('403abc2b-2ef9-4a4e-96d2-b4d83a6a4d2b', 'Obat A', 'obat pusing'),
-('43288b0b-661f-44ab-a86d-e149a1c529a9', 'Obat D', '-'),
-('4d328bb7-8e21-4812-9686-cbfee056f0f3', 'obat C', 'sakit gigi'),
-('bdba4c10-4993-4d4a-b76a-d8cad34326e9', 'Obat E', '-'),
-('e2ea0e7e-04cf-4b41-8a87-04add912f993', 'obat B', 'obat demam');
+INSERT INTO `tb_file` (`id_file`, `id_rm`, `nama_file`) VALUES
+(1, 15, '208-Article_Text-2197-1-10-20211027.pdf'),
+(2, 18, '569-Article_Text-2954-2-10-20210825.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_notifikasi`
+--
+
+CREATE TABLE `tb_notifikasi` (
+  `id_notifikasi` int(11) NOT NULL,
+  `id_rekammedis` int(11) NOT NULL,
+  `notif` varchar(150) NOT NULL,
+  `status_notif` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_notifikasi`
+--
+
+INSERT INTO `tb_notifikasi` (`id_notifikasi`, `id_rekammedis`, `notif`, `status_notif`) VALUES
+(1, 15, 'Rekam Medis Dengan Id 15, Akan Diretensi', 1);
 
 -- --------------------------------------------------------
 
@@ -136,7 +153,8 @@ CREATE TABLE `tb_pegawai` (
 --
 
 INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `alamat`, `no_hp`, `email`) VALUES
-(2, 1, 'admin griya', 'Dagangan, Madiun', '08976271251', 'admin@gmail.com');
+(2, 1, 'admin griya', 'Dagangan, Madiun', '08976271251', 'admin@gmail.com'),
+(3, 78, 'dekapramesta', 'Dagangan, Madiun', '08965362536', 'dekapramesta77@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -147,7 +165,7 @@ INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `alamat`, `no
 CREATE TABLE `tb_rekammedis` (
   `id_rm` int(11) NOT NULL,
   `id_pasien` int(11) NOT NULL,
-  `id_dokter` varchar(50) NOT NULL,
+  `id_dokter` int(11) NOT NULL,
   `status_rm` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -156,23 +174,11 @@ CREATE TABLE `tb_rekammedis` (
 --
 
 INSERT INTO `tb_rekammedis` (`id_rm`, `id_pasien`, `id_dokter`, `status_rm`) VALUES
-(3, 2, '8de1a500-3663-457b-9a27-1644e0c17fa2', 1),
-(4, 2, '8de1a500-3663-457b-9a27-1644e0c17fa2', 1),
-(5, 1, '8de1a500-3663-457b-9a27-1644e0c17fa2', 1),
-(6, 1, '8de1a500-3663-457b-9a27-1644e0c17fa2', 1),
-(7, 2, 'e6bfe5eb-02b5-4ec1-b7f7-ce2e41547700', 1);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_rm_obat`
---
-
-CREATE TABLE `tb_rm_obat` (
-  `id` int(10) NOT NULL,
-  `id_rm` varchar(50) NOT NULL,
-  `id_obat` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(15, 1, 2, 0),
+(16, 1, 2, 1),
+(17, 2, 2, 1),
+(18, 2, 2, 1),
+(19, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +198,8 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`) VALUES
-(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '1');
+(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '2'),
+(78, 'dekapra', '$2y$10$p5ej2m0NPaZZOxK5EbrqoOSwt6XFy2FTBegpExyRzi9874MqkU2qy', '1');
 
 --
 -- Indexes for dumped tables
@@ -203,20 +210,27 @@ INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`) VALUES
 --
 ALTER TABLE `tb_detail_rm`
   ADD PRIMARY KEY (`id_detail_rm`),
-  ADD KEY `id_rm` (`id_rm`);
+  ADD KEY `tb_detail_rm_ibfk_1` (`id_rm`);
 
 --
 -- Indeks untuk tabel `tb_dokter`
 --
 ALTER TABLE `tb_dokter`
-  ADD PRIMARY KEY (`id_dokter`),
-  ADD KEY `id_dokter` (`id_dokter`);
+  ADD PRIMARY KEY (`id_dokter`);
 
 --
--- Indeks untuk tabel `tb_obat`
+-- Indeks untuk tabel `tb_file`
 --
-ALTER TABLE `tb_obat`
-  ADD PRIMARY KEY (`id_obat`);
+ALTER TABLE `tb_file`
+  ADD PRIMARY KEY (`id_file`),
+  ADD KEY `id_rm` (`id_rm`);
+
+--
+-- Indeks untuk tabel `tb_notifikasi`
+--
+ALTER TABLE `tb_notifikasi`
+  ADD PRIMARY KEY (`id_notifikasi`),
+  ADD KEY `id_rekammedis` (`id_rekammedis`);
 
 --
 -- Indeks untuk tabel `tb_pasien`
@@ -237,15 +251,7 @@ ALTER TABLE `tb_pegawai`
 ALTER TABLE `tb_rekammedis`
   ADD PRIMARY KEY (`id_rm`),
   ADD KEY `tb_rekammedis_ibfk_1` (`id_pasien`),
-  ADD KEY `tb_rekammedis_ibfk_2` (`id_dokter`);
-
---
--- Indeks untuk tabel `tb_rm_obat`
---
-ALTER TABLE `tb_rm_obat`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rm` (`id_rm`),
-  ADD KEY `id_obat` (`id_obat`);
+  ADD KEY `id_dokter` (`id_dokter`);
 
 --
 -- Indeks untuk tabel `tb_user`
@@ -261,7 +267,25 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_detail_rm`
 --
 ALTER TABLE `tb_detail_rm`
-  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_dokter`
+--
+ALTER TABLE `tb_dokter`
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_file`
+--
+ALTER TABLE `tb_file`
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_notifikasi`
+--
+ALTER TABLE `tb_notifikasi`
+  MODIFY `id_notifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pasien`
@@ -273,25 +297,19 @@ ALTER TABLE `tb_pasien`
 -- AUTO_INCREMENT untuk tabel `tb_pegawai`
 --
 ALTER TABLE `tb_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_rekammedis`
 --
 ALTER TABLE `tb_rekammedis`
-  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT untuk tabel `tb_rm_obat`
---
-ALTER TABLE `tb_rm_obat`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -301,7 +319,19 @@ ALTER TABLE `tb_user`
 -- Ketidakleluasaan untuk tabel `tb_detail_rm`
 --
 ALTER TABLE `tb_detail_rm`
-  ADD CONSTRAINT `tb_detail_rm_ibfk_1` FOREIGN KEY (`id_rm`) REFERENCES `tb_rekammedis` (`id_rm`);
+  ADD CONSTRAINT `tb_detail_rm_ibfk_1` FOREIGN KEY (`id_rm`) REFERENCES `tb_rekammedis` (`id_rm`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_file`
+--
+ALTER TABLE `tb_file`
+  ADD CONSTRAINT `tb_file_ibfk_1` FOREIGN KEY (`id_rm`) REFERENCES `tb_rekammedis` (`id_rm`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_notifikasi`
+--
+ALTER TABLE `tb_notifikasi`
+  ADD CONSTRAINT `tb_notifikasi_ibfk_1` FOREIGN KEY (`id_rekammedis`) REFERENCES `tb_rekammedis` (`id_rm`);
 
 --
 -- Ketidakleluasaan untuk tabel `tb_pegawai`
@@ -313,14 +343,8 @@ ALTER TABLE `tb_pegawai`
 -- Ketidakleluasaan untuk tabel `tb_rekammedis`
 --
 ALTER TABLE `tb_rekammedis`
-  ADD CONSTRAINT `tb_rekammedis_ibfk_2` FOREIGN KEY (`id_dokter`) REFERENCES `tb_dokter` (`id_dokter`),
-  ADD CONSTRAINT `tb_rekammedis_ibfk_3` FOREIGN KEY (`id_pasien`) REFERENCES `tb_pasien` (`id_pasien`);
-
---
--- Ketidakleluasaan untuk tabel `tb_rm_obat`
---
-ALTER TABLE `tb_rm_obat`
-  ADD CONSTRAINT `tb_rm_obat_ibfk_2` FOREIGN KEY (`id_obat`) REFERENCES `tb_obat` (`id_obat`);
+  ADD CONSTRAINT `tb_rekammedis_ibfk_3` FOREIGN KEY (`id_pasien`) REFERENCES `tb_pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_rekammedis_ibfk_4` FOREIGN KEY (`id_dokter`) REFERENCES `tb_dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
