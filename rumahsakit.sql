@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Apr 2022 pada 09.36
+-- Waktu pembuatan: 11 Apr 2022 pada 10.43
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.2
 
@@ -40,10 +40,7 @@ CREATE TABLE `tb_detail_rm` (
 --
 
 INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `keluhan`, `diagnosa`, `tgl_periksa`) VALUES
-(6, 15, 'Pusing', 'Migrain', '2017-04-10'),
-(7, 16, 'Sakit Peut', 'Maag', '2022-04-12'),
-(8, 17, 'Mencret', 'Wasir', '2022-04-08'),
-(9, 18, 'Pegel', 'Pegel Linu', '2022-04-21'),
+(9, 18, 'Pegel', 'Pegel Linuu', '2022-04-05'),
 (10, 19, 'Tak tau', 'tak tau', '2022-04-08');
 
 -- --------------------------------------------------------
@@ -85,8 +82,7 @@ CREATE TABLE `tb_file` (
 --
 
 INSERT INTO `tb_file` (`id_file`, `id_rm`, `nama_file`) VALUES
-(1, 15, '208-Article_Text-2197-1-10-20211027.pdf'),
-(2, 18, '569-Article_Text-2954-2-10-20210825.pdf');
+(2, 18, 'pdfku.pdf');
 
 -- --------------------------------------------------------
 
@@ -100,13 +96,6 @@ CREATE TABLE `tb_notifikasi` (
   `notif` varchar(150) NOT NULL,
   `status_notif` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_notifikasi`
---
-
-INSERT INTO `tb_notifikasi` (`id_notifikasi`, `id_rekammedis`, `notif`, `status_notif`) VALUES
-(1, 15, 'Rekam Medis Dengan Id 15, Akan Diretensi', 1);
 
 -- --------------------------------------------------------
 
@@ -130,8 +119,8 @@ CREATE TABLE `tb_pasien` (
 --
 
 INSERT INTO `tb_pasien` (`id_pasien`, `nomor_identitas`, `nama_pasien`, `jenis_kelamin`, `alamat`, `no_telp`, `agama`, `tgl_lahir`) VALUES
-(1, '187291267', 'deka', 'L', 'Dagangan, Madiun', '08976251652', 'Islam', '2022-04-08'),
-(2, '427642', 'dk', 'L', 'Dagangan', '0898248738274', 'Islam', '2022-04-08');
+(2, '427642', 'dk', 'L', 'Dagangan', '0898248738274', 'Islam', '2022-04-08'),
+(3, '4276428787', 'deka pra', 'L', 'dagangan', '0878676817', 'Islam', '2022-04-11');
 
 -- --------------------------------------------------------
 
@@ -174,9 +163,6 @@ CREATE TABLE `tb_rekammedis` (
 --
 
 INSERT INTO `tb_rekammedis` (`id_rm`, `id_pasien`, `id_dokter`, `status_rm`) VALUES
-(15, 1, 2, 0),
-(16, 1, 2, 1),
-(17, 2, 2, 1),
 (18, 2, 2, 1),
 (19, 2, 2, 1);
 
@@ -230,7 +216,7 @@ ALTER TABLE `tb_file`
 --
 ALTER TABLE `tb_notifikasi`
   ADD PRIMARY KEY (`id_notifikasi`),
-  ADD KEY `id_rekammedis` (`id_rekammedis`);
+  ADD KEY `tb_notifikasi_ibfk_1` (`id_rekammedis`);
 
 --
 -- Indeks untuk tabel `tb_pasien`
@@ -267,7 +253,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_detail_rm`
 --
 ALTER TABLE `tb_detail_rm`
-  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_dokter`
@@ -291,7 +277,7 @@ ALTER TABLE `tb_notifikasi`
 -- AUTO_INCREMENT untuk tabel `tb_pasien`
 --
 ALTER TABLE `tb_pasien`
-  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pegawai`
@@ -303,7 +289,7 @@ ALTER TABLE `tb_pegawai`
 -- AUTO_INCREMENT untuk tabel `tb_rekammedis`
 --
 ALTER TABLE `tb_rekammedis`
-  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -331,7 +317,7 @@ ALTER TABLE `tb_file`
 -- Ketidakleluasaan untuk tabel `tb_notifikasi`
 --
 ALTER TABLE `tb_notifikasi`
-  ADD CONSTRAINT `tb_notifikasi_ibfk_1` FOREIGN KEY (`id_rekammedis`) REFERENCES `tb_rekammedis` (`id_rm`);
+  ADD CONSTRAINT `tb_notifikasi_ibfk_1` FOREIGN KEY (`id_rekammedis`) REFERENCES `tb_rekammedis` (`id_rm`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_pegawai`
