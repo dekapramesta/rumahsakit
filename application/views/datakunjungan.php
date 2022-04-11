@@ -59,6 +59,10 @@
                                                             <a onclick="TambahScan(<?= $rkm['id_rm'] ?>)" class="dropdown-item has-icon"><i class="far fa-list-alt"></i> Tambah file scan</a>
                                                             <a href="<?= base_url('DataKunjungan/EditKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
                                                             <a href="<?= base_url('DataKunjungan/DeleteKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                            <?php if ($rkm['nama_file'] != null) : ?>
+                                                                <a href="<?= base_url('DataKunjungan/DownloadRM/' . $rkm['nama_file']) ?>" class="dropdown-item has-icon"><i class="fas fa-download"></i> Download</a>
+                                                            <?php endif; ?>
+
                                                         </div>
                                                     </div>
                                                 </td>

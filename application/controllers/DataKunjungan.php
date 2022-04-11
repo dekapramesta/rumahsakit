@@ -128,4 +128,9 @@ class DataKunjungan extends CI_Controller
         $this->db->delete('tb_rekammedis', array('id_rm' => $id));
         redirect('DataKunjungan');
     }
+    public function DownloadRM($name)
+    {
+        $this->load->helper('download');
+        force_download('assets/scan/' . $name, NULL);
+    }
 }

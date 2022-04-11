@@ -33,7 +33,7 @@ class Login extends CI_Controller
             $this->session->set_userdata('username', $auth->username);
             $this->session->set_userdata('id_user', $auth->id_user);
             $this->session->set_userdata('level', $auth->level);
-            redirect('DataPegawai');
+            redirect('Home');
         }
     }
 }
