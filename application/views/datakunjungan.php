@@ -57,8 +57,8 @@
                                                         <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
                                                         <div class="dropdown-menu">
                                                             <a onclick="TambahScan(<?= $rkm['id_rm'] ?>)" class="dropdown-item has-icon"><i class="far fa-list-alt"></i> Tambah file scan</a>
-                                                            <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                            <a href="#" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                            <a href="<?= base_url('DataKunjungan/EditKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
+                                                            <a href="<?= base_url('DataKunjungan/DeleteKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
                                                         </div>
                                                     </div>
                                                 </td>

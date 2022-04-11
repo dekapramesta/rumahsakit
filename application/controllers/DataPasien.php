@@ -54,4 +54,38 @@ class DataPasien extends CI_Controller
         $this->Model_admin->tambah_data($data_pasien, 'tb_pasien');
         redirect('DataPasien');
     }
+    public function EditPasien($id_pasien)
+    {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+        $data['pasien'] = $this->db->get_where('tb_pasien', array('id_pasien' => $id_pasien))->row();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('editpasien', $data);
+        $this->load->view('templates/footer');
+    }
+    public function EditDataPasien()
+    {
+        $data = array(
+            'id_pasien' => $this->input->post('id_pasien'),
+            'nomor_identitas' => $this->input->post('no_identitas'),
+            'nama_pasien' => $this->input->post('nama'),
+            'jenis_kelamin' => $this->input->post('gender'),
+            'alamat' => $this->input->post('alamat'),
+            'no_telp' => $this->input->post('no_telp'),
+            'agama' => $this->input->post('agama'),
+            'tgl_lahir' => $this->input->post('tgl_lahir')
+        );
+
+        $where = array(
+            'id_pasien' => $this->input->post('id_pasien')
+        );
+
+        $this->Model_admin->edit_data($where, $data, 'tb_pasien');
+        redirect('DataPasien');
+    }
+    public function DeletePasien($id)
+    {
+        $this->db->delete('tb_pasien', array('id_pasien' => $id));
+        redirect('DataPasien');
+    }
 }

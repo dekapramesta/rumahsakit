@@ -16,6 +16,7 @@ class Model_admin extends CI_Model
         $this->db->group_by('nomor_identitas');
         return $this->db->get();
     }
+
     public function getDateChecking()
     {
         $this->db->select('tb_detail_rm.tgl_periksa, tb_pasien.id_pasien, tb_rekammedis.id_rm');
@@ -47,6 +48,17 @@ class Model_admin extends CI_Model
         $this->db->join('tb_pasien', 'tb_pasien.id_pasien=tb_rekammedis.id_pasien', 'left');
         $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
         $this->db->where('status_rm =', $sts);
+        return $this->db->get();
+    }
+    public function getRekamMedisEdit($id)
+    {
+        $this->db->where('tb_rekammedis.id_rm', $id);
+        $this->db->select('tb_rekammedis.*,tb_pasien.*,tb_detail_rm.*,tb_file.nama_file, tb_dokter.*');
+        $this->db->from('tb_rekammedis');
+        $this->db->join('tb_pasien', 'tb_pasien.id_pasien=tb_rekammedis.id_pasien', 'left');
+        $this->db->join('tb_dokter', 'tb_dokter.id_dokter=tb_rekammedis.id_dokter', 'left');
+        $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
+        $this->db->join('tb_file', 'tb_file.id_rm=tb_rekammedis.id_rm', 'left');
         return $this->db->get();
     }
 }

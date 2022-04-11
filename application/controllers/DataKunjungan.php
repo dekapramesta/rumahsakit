@@ -45,7 +45,7 @@ class DataKunjungan extends CI_Controller
 
         $data['pasien'] = $this->db->get('tb_pasien')->result_array();
         $data['dokter'] = $this->db->get('tb_dokter')->result_array();
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('tambahkunjungan', $data);
         $this->load->view('templates/footer');
@@ -91,5 +91,41 @@ class DataKunjungan extends CI_Controller
 				window.location.href = '" . $linkinto . "';// your redirect path here
 				</script>";
         }
+    }
+    public function EditKunjungan($id)
+    {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+        $data['Rekam'] = $this->Model_admin->getRekamMedisEdit($id)->row();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('editkunjungan', $data);
+        $this->load->view('templates/footer');
+    }
+    public function EditDataKunjungan()
+    {
+        $data_rm = array(
+            'id_pasien' => $this->input->post('id_pasien'),
+            'id_dokter' => $this->input->post('id_dokter'),
+            'status_rm' => $this->input->post('status_rm')
+        );
+        $where_rm = array(
+            'id_rm' => $this->input->post('id_rm')
+        );
+
+        $masuk = $this->Model_admin->edit_data($where_rm, $data_rm, 'tb_rekammedis');
+        if ($masuk) {
+            $data_detail = array(
+                'keluhan' => $this->input->post('keluhan'),
+                'diagnosa' => $this->input->post('diagnosa'),
+                'tgl_periksa' => $this->input->post('tgl_periksa'),
+            );
+            $this->Model_admin->edit_data($where_rm, $data_detail, 'tb_detail_rm');
+            redirect('DataKunjungan');
+        }
+    }
+    public function DeleteKunjungan($id)
+    {
+        $this->db->delete('tb_rekammedis', array('id_rm' => $id));
+        redirect('DataKunjungan');
     }
 }
