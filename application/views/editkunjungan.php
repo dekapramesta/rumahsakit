@@ -42,17 +42,44 @@
                                      <input hidden value="<?= $Rekam->id_rm ?>" name="id_rm" type="tex" class="form-control" required="">
                                      <input value="<?= $Rekam->tgl_periksa ?>" name="tgl_periksa" type="date" class="form-control" required="">
                                  </div>
-                                 <div class="form-group">
-                                     <label>Keluhan</label>
-                                     <textarea name="keluhan" class="form-control" required=""><?= $Rekam->keluhan ?></textarea>
 
-                                 </div>
                                  <div class="form-group">
                                      <label>Diagnosa</label>
                                      <textarea name="diagnosa" class="form-control" required=""><?= $Rekam->diagnosa ?></textarea>
 
                                  </div>
+                                 <div class="form-group">
+                                     <label>Keadaan Keluar</label>
+                                     <select name="cara_keluar" class="form-control" id="">
+                                         <option <?php if ($Rekam->cara_keluar == 0) {
+                                                        echo "selected";
+                                                    } ?> value="0">Sembuh</option>
+                                         <option <?php if ($Rekam->cara_keluar == 1) {
+                                                        echo "selected";
+                                                    } ?> value="1">Perbaikan</option>
+                                         <option <?php if ($Rekam->cara_keluar == 2) {
+                                                        echo "selected";
+                                                    } ?> value="2">Meninggal</option>
 
+
+                                     </select>
+                                 </div>
+                                 <div class="form-group">
+                                     <label>Cara Keluar</label>
+                                     <select name="status_out" class="form-control" id="">
+                                         <option <?php if ($Rekam->status_out == 0) {
+                                                        echo "selected";
+                                                    } ?> value="0">Izin Dokter</option>
+                                         <option <?php if ($Rekam->status_out == 1) {
+                                                        echo "selected";
+                                                    } ?> value="1">Pulang Paksa</option>
+                                         <option <?php if ($Rekam->status_out == 2) {
+                                                        echo "selected";
+                                                    } ?> value="2">Meninggal</option>
+
+
+                                     </select>
+                                 </div>
 
                                  <div class="form-group">
                                      <label for="">Jenis Rekam Medis</label><br>

@@ -28,8 +28,7 @@
                                             <th>Nama Pasien</th>
                                             <th>Tanggal Kunjungan</th>
                                             <th>Lama Penyimpanan</th>
-                                            <th>Keluhan</th>
-                                            <th>Diagnosa</th>
+                                            <th>Tanggal Kunjungan Akhir</th>
                                             <th>Jenis RM</th>
                                             <th>Aksi</th>
 
@@ -40,8 +39,21 @@
                                         <tr>
                                             <?php $no = 0;
                                             foreach ($Rekam as $rkm) : $no++; ?>
-                                                <td></td>
-                                                <td><?= $rkm['id_rm'] ?></td>
+                                                <?php
+                                                $tgl_awal = null;
+                                                foreach ($tanggal as $tgl) {
+
+                                                    if ($rkm['id_pasien'] == $tgl['id_pasien']) {
+                                                        $id_akhir = $tgl['id_pasien'];
+                                                        $tgl_akhir = $tgl['tgl_periksa'];
+                                                        if ($tgl_awal == null) {
+                                                            $tgl_awal = $tgl['tgl_periksa'];
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                                <td><?= $no; ?></td>
+                                                <td><?= $rkm['no_rm'] ?></td>
                                                 <td><?= $rkm['nama_pasien'] ?></td>
                                                 <td><?= $rkm['tgl_periksa'] ?></td>
                                                 <td><?php if ($rkm['nama_file'] != null) {
@@ -49,14 +61,29 @@
                                                     } else {
                                                         echo "Belum Memasukan Scan";
                                                     }  ?></td>
-                                                <td><?= $rkm['keluhan'] ?></td>
-                                                <td><?= $rkm['diagnosa'] ?></td>
-                                                <td><?= $rkm['status_rm'] ?></td>
+                                                <td><?php if ($rkm['id_pasien'] == $id_akhir) {
+                                                        if (@$tgl_akhir == null) {
+                                                            echo "Belum Melakukan Kunjungan";
+                                                        } else {
+                                                            echo $tgl_akhir;
+                                                        }
+                                                    } else {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } ?></td>
+                                                <td><?php if ($rkm['status_rm'] == 0) {
+                                                        echo "Inaktif";
+                                                    } else {
+                                                        echo "Aktif";
+                                                    }  ?></td>
                                                 <td class="text-center">
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a onclick="TambahScan(<?= $rkm['id_rm'] ?>)" class="dropdown-item has-icon"><i class="far fa-list-alt"></i> Tambah file scan</a>
+                                                            <?php $file = $this->db->get('tb_file')->result_array();
+                                                            $idrm = array_column($file, 'id_rm');
+                                                            if (!in_array($rkm['id_rm'], $idrm)) : ?>
+                                                                <a onclick="TambahScan(<?= $rkm['id_rm'] ?>)" class="dropdown-item has-icon"><i class="far fa-list-alt"></i> Tambah file scan</a>
+                                                            <?php endif; ?>
                                                             <a href="<?= base_url('DataKunjungan/EditKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
                                                             <a href="<?= base_url('DataKunjungan/DeleteKunjungan/' . $rkm['id_rm']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
                                                             <?php if ($rkm['nama_file'] != null) : ?>
@@ -66,6 +93,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+
                                         </tr>
                                     <?php endforeach ?>
 

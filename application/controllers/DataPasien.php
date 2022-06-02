@@ -45,6 +45,7 @@ class DataPasien extends CI_Controller
         $data_pasien = array(
             'nomor_identitas' => $this->input->post('no_identitas'),
             'nama_pasien' => $this->input->post('nama_pasien'),
+            'no_rm' => rand(000001, 999999),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'alamat' => $this->input->post('alamat'),
             'no_telp' => $this->input->post('no_telp'),

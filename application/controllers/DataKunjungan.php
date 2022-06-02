@@ -34,10 +34,18 @@ class DataKunjungan extends CI_Controller
     {
         $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
         $data['Rekam'] = $this->Model_admin->getRekamMedis()->result_array();
+        $data['tanggal'] = $this->Model_admin->getDateChecking()->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('datakunjungan', $data);
         $this->load->view('templates/footer');
+    }
+    public function Tes()
+    {
+
+        $arr = 'asnasj';
+        echo json_encode($arr);
     }
     public function TambahKunjungan()
     {
@@ -62,8 +70,9 @@ class DataKunjungan extends CI_Controller
             $id_rm = $this->db->insert_id();
             $detail_rm = array(
                 'id_rm' => $id_rm,
-                'keluhan' => $this->input->post('keluhan'),
                 'diagnosa' => $this->input->post('diagnosa'),
+                'cara_keluar' => $this->input->post('cara_keluar'),
+                'status_out' => $this->input->post('status_out'),
                 'tgl_periksa' => date('Y-m-d')
             );
             $this->Model_admin->tambah_data($detail_rm, 'tb_detail_rm');
@@ -115,7 +124,8 @@ class DataKunjungan extends CI_Controller
         $masuk = $this->Model_admin->edit_data($where_rm, $data_rm, 'tb_rekammedis');
         if ($masuk) {
             $data_detail = array(
-                'keluhan' => $this->input->post('keluhan'),
+                'cara_keluar' => $this->input->post('cara_keluar'),
+                'status_out' => $this->input->post('status_out'),
                 'diagnosa' => $this->input->post('diagnosa'),
                 'tgl_periksa' => $this->input->post('tgl_periksa'),
             );

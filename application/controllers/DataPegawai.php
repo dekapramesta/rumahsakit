@@ -34,7 +34,8 @@ class DataPegawai extends CI_Controller
     public function index()
     {
         $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
-        $data['pegawai'] = $this->db->get('tb_pegawai')->result_array();
+        $data['pegawai'] = $this->Model_admin->getPegawai()->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('datapegawai');
@@ -47,6 +48,16 @@ class DataPegawai extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('tambahpegawai');
+        $this->load->view('templates/footer');
+    }
+    public function EditPegawai($id)
+    {
+        $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
+        $data['pegawai'] = $this->Model_admin->getPegawaiById($id)->row();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('editpegawai', $data);
         $this->load->view('templates/footer');
     }
     public function DaftarPegawai()
@@ -90,5 +101,73 @@ class DataPegawai extends CI_Controller
             $this->load->view('tambahpegawai');
             $this->load->view('templates/footer');
         }
+    }
+    public function UbahPegawai($id)
+    {
+        # code...
+        $id_user = $this->db->get_where('tb_pegawai', array('id_pegawai' => $id))->row()->id_user;
+
+        $data = array(
+            'username' => $this->input->post('username'),
+            'level' => $this->input->post('level')
+        );
+
+        $where = array(
+            'id_user' => $id_user
+        );
+
+        $first = $this->Model_admin->edit_data($where, $data, 'tb_user');
+        if ($first) {
+            $data_peg = array(
+                'nama_lengkap' => $this->input->post('nama_lengkap'),
+                'email' => $this->input->post('email'),
+                'no_hp' => $this->input->post('no_hp'),
+            );
+
+            $where_peg = array(
+                'id_pegawai' => $id
+            );
+
+            $this->Model_admin->edit_data($where_peg, $data_peg, 'tb_pegawai');
+        }
+
+        redirect('DataPegawai');
+    }
+    public function UbahPassword()
+    {
+        $data = array(
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+
+        );
+
+        $where = array(
+            'id_user' => $this->input->post('id_user')
+        );
+
+        $this->Model_admin->edit_data($where, $data, 'tb_user');
+        redirect('DataPegawai');
+    }
+    public function GantiStatus($id)
+    {
+        $data = $this->db->get_where('tb_user', array('id_user' => $id))->row();
+        if ($data->status_user == 1) {
+            $data = array(
+                'status_user' => 0,
+
+            );
+        } else {
+            $data = array(
+                'status_user' => 1,
+
+            );
+        }
+
+
+        $where = array(
+            'id_user' => $id
+        );
+
+        $this->Model_admin->edit_data($where, $data, 'tb_user');
+        redirect('DataPegawai');
     }
 }

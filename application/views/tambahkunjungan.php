@@ -57,10 +57,25 @@
                                      </select>
 
                                  </div>
-                                 <div class="form-group mb-0">
-                                     <label>Keluhan</label>
-                                     <textarea name="keluhan" class="form-control" required=""></textarea>
+                                 <div class="form-group">
+                                     <label>Keadaan Keluar</label>
+                                     <select name="cara_keluar" class="form-control" id="">
+                                         <option value="0">Sembuh</option>
+                                         <option value="1">Perbaikan</option>
+                                         <option value="2">Meninggal</option>
 
+
+                                     </select>
+                                 </div>
+                                 <div class="form-group">
+                                     <label>Cara Keluar</label>
+                                     <select name="status_out" class="form-control" id="">
+                                         <option value="0">Izin Dokter</option>
+                                         <option value="1">Pulang Paksa</option>
+                                         <option value="2">Meninggal</option>
+
+
+                                     </select>
                                  </div>
                                  <div class="form-group mb-0">
                                      <label>Diagnosa</label>

@@ -13,7 +13,28 @@ class Model_admin extends CI_Model
         $this->db->from('tb_pasien');
         $this->db->join('tb_rekammedis', 'tb_rekammedis.id_pasien=tb_pasien.id_pasien', 'left');
         $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
-        $this->db->group_by('nomor_identitas');
+        $this->db->join('tb_dokter', 'tb_dokter.id_dokter=tb_rekammedis.id_dokter', 'left');
+
+        // $this->db->group_by('nomor_identitas');
+        return $this->db->get();
+    }
+    public function getPegawai()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_pegawai');
+        $this->db->join('tb_user', 'tb_user.id_user=tb_pegawai.id_user', 'left');
+
+        // $this->db->group_by('nomor_identitas');
+        return $this->db->get();
+    }
+    public function getPegawaiById($id)
+    {
+        $this->db->where('tb_pegawai.id_pegawai', $id);
+        $this->db->select('*');
+        $this->db->from('tb_pegawai');
+        $this->db->join('tb_user', 'tb_user.id_user=tb_pegawai.id_user', 'left');
+
+        // $this->db->group_by('nomor_identitas');
         return $this->db->get();
     }
 

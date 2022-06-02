@@ -26,14 +26,20 @@
                                             <th>
                                                 #
                                             </th>
-                                            <th>No Identitas</th>
+                                            <th>No RM</th>
                                             <th>Nama Pasien</th>
                                             <th>Alamat</th>
                                             <th>Gender</th>
                                             <th>Tanggal Lahir</th>
                                             <th>Agama</th>
+                                            <th>DPJP</th>
+                                            <th>Diagnosa</th>
                                             <th>Tanggal Kunjungan Awal</th>
                                             <th>Tanggal Kunjungan Akhir</th>
+                                            <th>Keadaan Keluar</th>
+                                            <th>Cara Keluar</th>
+                                            <th>Tahun Kunjungan Akhir</th>
+
                                             <th>Aksi</th>
 
                                         </tr>
@@ -49,27 +55,41 @@
                                             $no++; ?>
 
                                             <?php
-
+                                            $tgl_awal = null;
                                             foreach ($tanggal as $tgl) {
+
                                                 if ($ps['id_pasien'] == $tgl['id_pasien']) {
                                                     $id_akhir = $tgl['id_pasien'];
                                                     $tgl_akhir = $tgl['tgl_periksa'];
+                                                    if ($tgl_awal == null) {
+                                                        $tgl_awal = $tgl['tgl_periksa'];
+                                                    }
                                                 }
                                             }
                                             ?>
 
                                             <tr>
-                                                <td><?= $no ?></td>
-                                                <td><?= $ps['nomor_identitas'] ?></td>
+                                                <td><?= $no; ?></td>
+                                                <td><?= $ps['no_rm'] ?></td>
                                                 <td><?= $ps['nama_pasien'] ?></td>
                                                 <td><?= $ps['alamat'] ?></td>
                                                 <td><?= $ps['jenis_kelamin'] ?></td>
                                                 <td><?= $ps['tgl_lahir'] ?></td>
                                                 <td><?= $ps['agama'] ?></td>
+                                                <td><?php if ($ps['nama_dokter'] != null) {
+                                                        echo $ps['nama_dokter'];
+                                                    } else {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } ?></td>
+                                                <td><?php if ($ps['diagnosa'] != null) {
+                                                        echo $ps['diagnosa'];
+                                                    } else {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    }  ?></td>
                                                 <td><?php if ($ps['tgl_periksa'] == null) {
                                                         echo "Belum Melakukan Kunjungan";
                                                     } else {
-                                                        echo $ps['tgl_periksa'];
+                                                        echo $tgl_awal;;
                                                     } ?></td>
                                                 <td><?php if ($ps['id_pasien'] == $id_akhir) {
                                                         if (@$tgl_akhir == null) {
@@ -80,11 +100,42 @@
                                                     } else {
                                                         echo "Belum Melakukan Kunjungan";
                                                     } ?></td>
+                                                <td><?php if ($ps['status_out'] == null) {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } else {
+                                                        if ($ps['status_out'] == 0) {
+                                                            echo "Sembuh";
+                                                        } elseif ($ps['status_out'] == 1) {
+                                                            echo "Perbaikan";
+                                                        } else {
+                                                            echo "Meninggal";
+                                                        }
+                                                    } ?></td>
+                                                <td><?php if ($ps['cara_keluar'] == null) {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } else {
+                                                        if ($ps['cara_keluar'] == 0) {
+                                                            echo "Izin Dokter";
+                                                        } elseif ($ps['cara_keluar'] == 1) {
+                                                            echo "Pulang Paksa";
+                                                        } else {
+                                                            echo "Meninggal";
+                                                        }
+                                                    }  ?></td>
+                                                <td><?php if ($ps['id_pasien'] == $id_akhir) {
+                                                        if (@$tgl_akhir == null) {
+                                                            echo "Belum Melakukan Kunjungan";
+                                                        } else {
+                                                            echo date('Y', strtotime($tgl_akhir));
+                                                        }
+                                                    } else {
+                                                        echo "Belum Melakukan Kunjungan";
+                                                    } ?></td>
                                                 <td class="text-center">
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
+                                                            <a href="<?= base_url('DataPasien/EditPsasien/' . $ps['id_pasien']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
                                                             <a href="<?= base_url('DataPasien/DeletePasien/' . $ps['id_pasien']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
                                                         </div>
                                                     </div>
