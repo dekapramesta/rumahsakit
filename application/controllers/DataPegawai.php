@@ -70,7 +70,6 @@ class DataPegawai extends CI_Controller
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|is_unique[tb_pegawai.nama_lengkap]');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
 
         $this->form_validation->set_message('required', '{field} tidak boleh kosong!');
@@ -80,7 +79,8 @@ class DataPegawai extends CI_Controller
             $data_user = array(
                 'username' => $this->input->post('username'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'level' => 1
+                'level' => 1,
+                'status_user' => 1
             );
             $regis_user = $this->Model_auth->daftar_user($data_user, 'tb_user');
             if ($regis_user) {
@@ -90,7 +90,6 @@ class DataPegawai extends CI_Controller
                     'nama_lengkap' => $this->input->post('nama_lengkap'),
                     'email' => $this->input->post('email'),
                     'no_hp' => $this->input->post('no_hp'),
-                    'alamat' => $this->input->post('alamat')
                 );
                 $this->Model_auth->daftar_user($data_profile, 'tb_pegawai');
                 redirect('DataPegawai');

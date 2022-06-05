@@ -24,7 +24,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                #
+                                                No
                                             </th>
                                             <th>Nama Lengkap</th>
                                             <th>No Hp</th>

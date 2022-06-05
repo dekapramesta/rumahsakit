@@ -48,12 +48,12 @@
                                      <span class="ml-2 text-danger"><b><?= form_error('no_hp') ?></b> </span>
 
                                  </div>
-                                 <div class="form-group mb-0">
+                                 <!-- <div class="form-group mb-0">
                                      <label>Almat</label>
                                      <textarea name="alamat" class="form-control" required=""></textarea>
                                      <span class="ml-2 text-danger"><b><?= form_error('alamat') ?></b> </span>
 
-                                 </div>
+                                 </div> -->
                              </div>
                              <div class="card-footer text-right">
                                  <button class="btn btn-primary">Submit</button>

@@ -24,7 +24,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                #
+                                                No
                                             </th>
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
