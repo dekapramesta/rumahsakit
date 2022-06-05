@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Apr 2022 pada 10.43
+-- Waktu pembuatan: 05 Jun 2022 pada 14.38
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.2
 
@@ -30,8 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_detail_rm` (
   `id_detail_rm` int(11) NOT NULL,
   `id_rm` int(11) NOT NULL,
-  `keluhan` varchar(100) NOT NULL,
   `diagnosa` varchar(100) NOT NULL,
+  `status_out` tinyint(4) NOT NULL,
+  `cara_keluar` tinyint(4) NOT NULL,
   `tgl_periksa` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,9 +40,12 @@ CREATE TABLE `tb_detail_rm` (
 -- Dumping data untuk tabel `tb_detail_rm`
 --
 
-INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `keluhan`, `diagnosa`, `tgl_periksa`) VALUES
-(9, 18, 'Pegel', 'Pegel Linuu', '2022-04-05'),
-(10, 19, 'Tak tau', 'tak tau', '2022-04-08');
+INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `diagnosa`, `status_out`, `cara_keluar`, `tgl_periksa`) VALUES
+(10, 19, 'tak tau', 0, 1, '2022-04-08'),
+(13, 22, 'jhjh', 1, 0, '2021-05-31'),
+(14, 23, 'hjhjh', 0, 0, '2022-04-11'),
+(15, 25, 'Kurap', 0, 1, '2022-05-31'),
+(17, 27, 'diabet', 0, 1, '2022-06-05');
 
 -- --------------------------------------------------------
 
@@ -82,7 +86,9 @@ CREATE TABLE `tb_file` (
 --
 
 INSERT INTO `tb_file` (`id_file`, `id_rm`, `nama_file`) VALUES
-(2, 18, 'pdfku.pdf');
+(4, 22, 'UAS_E-Bisnis_Deka_Pramesta1.pdf'),
+(5, 19, 'ID_TEST.pdf'),
+(6, 27, '1741-3447-3-PB.pdf');
 
 -- --------------------------------------------------------
 
@@ -106,6 +112,7 @@ CREATE TABLE `tb_notifikasi` (
 CREATE TABLE `tb_pasien` (
   `id_pasien` int(11) NOT NULL,
   `nomor_identitas` varchar(100) NOT NULL,
+  `no_rm` varchar(6) NOT NULL,
   `nama_pasien` varchar(100) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `alamat` text NOT NULL,
@@ -118,9 +125,11 @@ CREATE TABLE `tb_pasien` (
 -- Dumping data untuk tabel `tb_pasien`
 --
 
-INSERT INTO `tb_pasien` (`id_pasien`, `nomor_identitas`, `nama_pasien`, `jenis_kelamin`, `alamat`, `no_telp`, `agama`, `tgl_lahir`) VALUES
-(2, '427642', 'dk', 'L', 'Dagangan', '0898248738274', 'Islam', '2022-04-08'),
-(3, '4276428787', 'deka pra', 'L', 'dagangan', '0878676817', 'Islam', '2022-04-11');
+INSERT INTO `tb_pasien` (`id_pasien`, `nomor_identitas`, `no_rm`, `nama_pasien`, `jenis_kelamin`, `alamat`, `no_telp`, `agama`, `tgl_lahir`) VALUES
+(2, '427642', '000126', 'dk', 'L', 'Dagangan', '0898248738274', 'Islam', '2022-04-08'),
+(3, '4276428787', '000981', 'deka pra', 'L', 'dagangan', '0878676817', 'Islam', '2022-04-11'),
+(4, '873982', '000723', 'virgoun', 'L', 'Joogodayuh', '0867237236', 'Islam', '2022-05-31'),
+(5, '8192918', '152904', 'olaf', 'L', 'Jogodayuh', '09889347928', 'Islam', '2022-06-05');
 
 -- --------------------------------------------------------
 
@@ -132,7 +141,6 @@ CREATE TABLE `tb_pegawai` (
   `id_pegawai` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `nama_lengkap` varchar(150) NOT NULL,
-  `alamat` varchar(150) NOT NULL,
   `no_hp` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -141,9 +149,10 @@ CREATE TABLE `tb_pegawai` (
 -- Dumping data untuk tabel `tb_pegawai`
 --
 
-INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `alamat`, `no_hp`, `email`) VALUES
-(2, 1, 'admin griya', 'Dagangan, Madiun', '08976271251', 'admin@gmail.com'),
-(3, 78, 'dekapramesta', 'Dagangan, Madiun', '08965362536', 'dekapramesta77@gmail.com');
+INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `no_hp`, `email`) VALUES
+(2, 1, 'admin griya husada', '08976271251', 'admin@gmail.com'),
+(3, 78, 'dekapramesta', '08965362536', 'dekapramesta77@gmail.com'),
+(6, 83, 'patrick', '0891829', 'patrick@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -163,8 +172,11 @@ CREATE TABLE `tb_rekammedis` (
 --
 
 INSERT INTO `tb_rekammedis` (`id_rm`, `id_pasien`, `id_dokter`, `status_rm`) VALUES
-(18, 2, 2, 1),
-(19, 2, 2, 1);
+(19, 2, 2, 1),
+(22, 3, 1, 1),
+(23, 3, 2, 1),
+(25, 4, 2, 1),
+(27, 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -176,16 +188,18 @@ CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `level` enum('1','2') NOT NULL
+  `level` enum('1','2') NOT NULL,
+  `status_user` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`) VALUES
-(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '2'),
-(78, 'dekapra', '$2y$10$p5ej2m0NPaZZOxK5EbrqoOSwt6XFy2FTBegpExyRzi9874MqkU2qy', '1');
+INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`, `status_user`) VALUES
+(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '2', 1),
+(78, 'deka', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '1', 1),
+(83, 'patrick', '$2y$10$nfJokLjkf9TT8C2HG42ouOGKYfoLEIP0YrcUxDIllf74.48V9.ZIa', '1', 1);
 
 --
 -- Indexes for dumped tables
@@ -253,7 +267,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_detail_rm`
 --
 ALTER TABLE `tb_detail_rm`
-  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detail_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_dokter`
@@ -265,37 +279,37 @@ ALTER TABLE `tb_dokter`
 -- AUTO_INCREMENT untuk tabel `tb_file`
 --
 ALTER TABLE `tb_file`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_notifikasi`
 --
 ALTER TABLE `tb_notifikasi`
-  MODIFY `id_notifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_notifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pasien`
 --
 ALTER TABLE `tb_pasien`
-  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pegawai`
 --
 ALTER TABLE `tb_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_rekammedis`
 --
 ALTER TABLE `tb_rekammedis`
-  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_rm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
