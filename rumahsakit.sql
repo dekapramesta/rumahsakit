@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jun 2022 pada 14.38
+-- Waktu pembuatan: 02 Jul 2022 pada 08.19
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 8.0.2
 
@@ -42,7 +42,7 @@ CREATE TABLE `tb_detail_rm` (
 
 INSERT INTO `tb_detail_rm` (`id_detail_rm`, `id_rm`, `diagnosa`, `status_out`, `cara_keluar`, `tgl_periksa`) VALUES
 (10, 19, 'tak tau', 0, 1, '2022-04-08'),
-(13, 22, 'jhjh', 1, 0, '2021-05-31'),
+(13, 22, 'jhjh', 1, 0, '2015-05-13'),
 (14, 23, 'hjhjh', 0, 0, '2022-04-11'),
 (15, 25, 'Kurap', 0, 1, '2022-05-31'),
 (17, 27, 'diabet', 0, 1, '2022-06-05');
@@ -142,17 +142,19 @@ CREATE TABLE `tb_pegawai` (
   `id_user` int(11) NOT NULL,
   `nama_lengkap` varchar(150) NOT NULL,
   `no_hp` varchar(20) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `nip` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_pegawai`
 --
 
-INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `no_hp`, `email`) VALUES
-(2, 1, 'admin griya husada', '08976271251', 'admin@gmail.com'),
-(3, 78, 'dekapramesta', '08965362536', 'dekapramesta77@gmail.com'),
-(6, 83, 'patrick', '0891829', 'patrick@gmail.com');
+INSERT INTO `tb_pegawai` (`id_pegawai`, `id_user`, `nama_lengkap`, `no_hp`, `email`, `nip`) VALUES
+(2, 1, 'admin griya husada', '08976271251', 'admin@gmail.com', ''),
+(3, 78, 'dekapramesta', '08965362536', 'dekapramesta77@gmail.com', ''),
+(6, 83, 'patrick', '0891829', 'patrick@gmail.com', ''),
+(7, 84, 'pramesta', '0895377922', 'dekadhanter77@gmail.com', '1291281');
 
 -- --------------------------------------------------------
 
@@ -173,7 +175,7 @@ CREATE TABLE `tb_rekammedis` (
 
 INSERT INTO `tb_rekammedis` (`id_rm`, `id_pasien`, `id_dokter`, `status_rm`) VALUES
 (19, 2, 2, 1),
-(22, 3, 1, 1),
+(22, 3, 1, 0),
 (23, 3, 2, 1),
 (25, 4, 2, 1),
 (27, 5, 1, 1);
@@ -188,7 +190,7 @@ CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `level` enum('1','2') NOT NULL,
+  `level` tinyint(4) NOT NULL,
   `status_user` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -197,9 +199,11 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`, `status_user`) VALUES
-(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '2', 1),
-(78, 'deka', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', '1', 1),
-(83, 'patrick', '$2y$10$nfJokLjkf9TT8C2HG42ouOGKYfoLEIP0YrcUxDIllf74.48V9.ZIa', '1', 1);
+(1, 'admin', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', 2, 1),
+(12, 'Kepala Rekam Medis', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', 3, 1),
+(78, 'pegawai1', '$2y$10$s2uU/B5yKx.b4u9eOCdite.IshVEM/vxaIcyArHEmkVzWv1HWOpdO', 1, 1),
+(83, 'pegawai2', '$2y$10$nfJokLjkf9TT8C2HG42ouOGKYfoLEIP0YrcUxDIllf74.48V9.ZIa', 1, 1),
+(84, 'pegawai3', '$2y$10$mA.1aTJhvIsi8hOnSRUQgeCJcxjIr5WIST2VeW4gKTWxRtoE5W9WG', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -297,7 +301,7 @@ ALTER TABLE `tb_pasien`
 -- AUTO_INCREMENT untuk tabel `tb_pegawai`
 --
 ALTER TABLE `tb_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_rekammedis`
@@ -309,7 +313,7 @@ ALTER TABLE `tb_rekammedis`
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
