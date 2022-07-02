@@ -46,21 +46,20 @@
                     <th>No Rekam Medis</th>
                     <th>Nama Pasien</th>
                     <th>Tanggal Kunjungan</th>
-                    <th>Jenis Rekam Medis</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 0;
                 foreach ($rtn as $rtm) : $no++; ?>
                     <tr>
-                        <td><?= $rtm['id_rm'] ?></td>
+                        <td><?= $rtm['no_rm'] ?></td>
                         <td><?= $rtm['nama_pasien'] ?></td>
                         <td><?= $rtm['tgl_periksa'] ?></td>
-                        <td><?php if ($rtm['status_rm'] == 1) {
-                                echo "Aktif";
-                            } else {
-                                echo "Tidak Aktif";
-                            } ?></td>
+                        <!-- <td><?php if ($rtm['status_rm'] == 1) {
+                                        echo "Aktif";
+                                    } else {
+                                        echo "Tidak Aktif";
+                                    } ?></td> -->
                     </tr>
                 <?php endforeach; ?>
             </tbody>

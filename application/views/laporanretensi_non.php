@@ -27,7 +27,6 @@
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
                                             <th>Tanggal Kunjungan</th>
-                                            <th>Aksi</th>
 
                                         </tr>
                                     </thead>
@@ -36,18 +35,10 @@
                                         foreach ($rekam_aktif as $ra) : $no++; ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $ra['id_rm'] ?></td>
+                                                <td><?= $ra['no_rm'] ?></td>
                                                 <td><?= $ra['nama_pasien'] ?></td>
                                                 <td><?= $ra['tgl_periksa'] ?></td>
-                                                <td class="text-center">
-                                                    <div class="dropdown">
-                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle w-75 ">Options</a>
-                                                        <div class="dropdown-menu">
-                                                            <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                            <a href="" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                               
                                             </tr>
                                         <?php endforeach; ?>
 

@@ -34,7 +34,7 @@
                                             <a href="index.html"> <img alt="image" src="assets/img/logo-rs.jpeg" style="width: 150%;" class="rounded-circle" /> </a>
                                         </div>
                                         <div class="col-11 text-center">
-                                            <h3 class="ml-auto mr-auto">Sistem Informasi Sistem Retensi Rumah Sakit Griya Husada Madiun</h3>
+                                            <h3 class="ml-auto mr-auto">Sistem Informasi Retensi Rekam Medis Rumah Sakit Griya Husada Madiun</h3>
                                         </div>
                                     </div>
                                 </div>

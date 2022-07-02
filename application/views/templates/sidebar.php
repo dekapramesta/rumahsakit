@@ -12,7 +12,7 @@
 
                 </li>
                 <li class="dropdown ">
-                    <a href="<?= base_url('DataPasien') ?>" class="nav-link "><i data-feather="user"></i><span>Data Pasien</span></a>
+                    <a href="<?= base_url('DataPasien') ?>" class="nav-link "><i data-feather="user"></i><span> Data Pasien</span></a>
 
                 </li>
                 <li class="dropdown ">
@@ -21,12 +21,10 @@
                 </li>
 
 
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Laporan Retensi</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="<?= base_url('LaporanRetensi') ?>">Aktif</a></li>
-                        <li><a class="nav-link" href="<?= base_url('LaporanRetensi/TidakAktif') ?>">Non-Aktif</a></li>
-                    </ul>
+                <li class="dropdown ">
+                    <a href="<?= base_url('LaporanRetensi') ?>" class="nav-link "><i data-feather="file"></i><span>Laporan Retensi</span></a>
+
+
                 </li>
             <?php elseif ($this->session->userdata('level') == 2) : ?>
                 <li class="dropdown ">
@@ -35,14 +33,33 @@
 
                 </li>
                 <li class="dropdown ">
-                    <a href="<?= base_url('DataPegawai') ?>" class="nav-link "><i data-feather="users"></i><span>Data pegawai</span></a>
+                    <a href="<?= base_url('DataPegawai') ?>" class="nav-link "><i data-feather="users"></i><span>Data Petugas</span></a>
                     <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
                 </li>
+            <?php elseif ($this->session->userdata('level') == 3) : ?>
+                <li class="dropdown ">
+                    <a href="<?= base_url('Home') ?>" class="nav-link "><i data-feather="home"></i><span>Home</span></a>
+
+
+                </li>
+                <li class="dropdown ">
+                    <a href="<?= base_url('LaporanRetensi') ?>" class="nav-link "><i data-feather="file"></i><span>Laporan Retensi</span></a>
+
+
+                </li>
+                <!-- <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="file"></i><span>Laporan Retensi</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="<?= base_url('LaporanRetensi') ?>">Aktif</a></li>
+                        <li><a class="nav-link" href="<?= base_url('LaporanRetensi/TidakAktif') ?>">Non-Aktif</a></li>
+                    </ul>
+                </li> -->
+
             <?php endif; ?>
 
 
             <li class="dropdown ">
-                <a href="<?= base_url('Home/Keluar') ?>" class="nav-link "><i data-feather="log-out" style="color: red;"></i><span style="color: red;">Keluar</span></a>
+                <a href="<?= base_url('Home/Keluar') ?>" class="nav-link "><i data-feather="log-out" style="color: red;"></i><span style="color: red;">Log Out</span></a>
                 <!-- <a href="<?= base_url('Admin/Registrasi') ?>" class="nav-link "><i data-feather="monitor"></i><span>Registrasi Siswa</span></a> -->
             </li>
 

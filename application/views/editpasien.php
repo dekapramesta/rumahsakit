@@ -15,10 +15,13 @@
                                      <input hidden name="id_pasien" required="" type="text" value="<?= $pasien->id_pasien ?>" class="form-control">
 
                                  </div>
-                                 <div class="form-group">
-                                     <label>No Identitas</label>
-                                     <input value="<?= $pasien->nomor_identitas ?>" name="no_identitas" type="text" class="form-control" required="">
+								  <div class="form-group">
+                                     <label>No RM</label>
+                                     <input name="no_rm" required="" type="text" value="<?= $pasien->no_rm ?>" class="form-control">
+
                                  </div>
+                                
+                                
                                  <div class="form-group">
                                      <label>Jenis Kelamin</label>
                                      <select name="gender" class="form-control">

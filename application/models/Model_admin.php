@@ -9,7 +9,7 @@ class Model_admin extends CI_Model
     }
     public function getPasien()
     {
-        $this->db->select('*');
+        $this->db->select('*,tb_pasien.id_pasien as id_pas');
         $this->db->from('tb_pasien');
         $this->db->join('tb_rekammedis', 'tb_rekammedis.id_pasien=tb_pasien.id_pasien', 'left');
         $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
@@ -62,13 +62,12 @@ class Model_admin extends CI_Model
         $this->db->join('tb_file', 'tb_file.id_rm=tb_rekammedis.id_rm', 'left');
         return $this->db->get();
     }
-    public function getRetensi($sts)
+    public function getRetensi()
     {
         $this->db->select('tb_rekammedis.*,tb_pasien.*,tb_detail_rm.*');
         $this->db->from('tb_rekammedis');
         $this->db->join('tb_pasien', 'tb_pasien.id_pasien=tb_rekammedis.id_pasien', 'left');
         $this->db->join('tb_detail_rm', 'tb_detail_rm.id_rm=tb_rekammedis.id_rm', 'left');
-        $this->db->where('status_rm =', $sts);
         return $this->db->get();
     }
     public function getRekamMedisEdit($id)

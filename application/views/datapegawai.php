@@ -8,10 +8,10 @@
                             <div class="col">
                                 <div class="row ">
                                     <div class="col">
-                                        <h4>Data Pegawai</h4>
+                                        <h4>Data Petugas</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <a href="<?= base_url('DataPegawai/TambahPegawai') ?>" type="button" class="btn btn-primary" href="">Tambah Data</a>
+                                        <a href="<?= base_url('DataPegawai/TambahPegawai') ?>" type="button" class="btn btn-primary" href="">Add Data</a>
 
 
                                     </div>
@@ -27,6 +27,7 @@
                                                 No
                                             </th>
                                             <th>Nama Lengkap</th>
+                                            <th>NIP</th>
                                             <th>No Hp</th>
                                             <th>Email</th>
                                             <th>Username</th>
@@ -45,6 +46,7 @@
                                                 <td><?= $no; ?></td>
 
                                                 <td><?= $pgw['nama_lengkap'] ?></td>
+                                                <td><?= $pgw['nip'] ?></td>
                                                 <td><?= $pgw['no_hp'] ?></td>
                                                 <td><?= $pgw['email'] ?></td>
                                                 <td><?= $pgw['username'] ?></td>

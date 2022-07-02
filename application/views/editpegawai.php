@@ -6,7 +6,7 @@
                      <div class="card">
                          <form action="<?= base_url('DataPegawai/UbahPegawai/' . $pegawai->id_pegawai) ?>" enctype="multipart/form-data" method="post">
                              <div class="card-header">
-                                 <h4>Edit Data Pegawai</h4>
+                                 <h4>Edit Data Petugas</h4>
                              </div>
                              <div class="card-body">
                                  <div class="form-group">
@@ -29,12 +29,21 @@
 
                                      </div>
                                  </div>
-                                 <div class="form-group">
-                                     <label>No Hp</label>
-                                     <input name="no_hp" type="number" value="<?= $pegawai->no_hp ?>" class="form-control">
-                                     <span class="ml-2 text-danger"><b><?= form_error('no_hp') ?></b> </span>
+                                 <div class="row">
+                                     <div class="form-group col-md-6 col-12">
+                                         <label>No Hp</label>
+                                         <input name="no_hp" type="number" value="<?= $pegawai->no_hp ?>" class="form-control">
+                                         <span class="ml-2 text-danger"><b><?= form_error('no_hp') ?></b> </span>
 
+                                     </div>
+                                     <div class="form-group col-md-6 col-12">
+                                         <label>NIP</label>
+                                         <input name="nip" type="number" value="<?= $pegawai->nip ?>" class="form-control">
+                                         <span class="ml-2 text-danger"><b><?= form_error('nip') ?></b> </span>
+
+                                     </div>
                                  </div>
+
                                  <div class="form-group">
                                      <label>Level Akses</label>
                                      <select name="level" class="form-control" id="">

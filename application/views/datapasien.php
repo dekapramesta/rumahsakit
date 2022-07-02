@@ -8,10 +8,10 @@
                             <div class="col">
                                 <div class="row ">
                                     <div class="col">
-                                        <h4>Data pasien</h4>
+                                        <h4>Patient</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <button onclick="modal_pasien()" type="button" class="btn btn-primary" href="">Tambah Data</button>
+                                        <button onclick="modal_pasien()" type="button" class="btn btn-primary" href="">Add Data</button>
 
 
                                     </div>
@@ -32,13 +32,13 @@
                                             <th>Gender</th>
                                             <th>Tanggal Lahir</th>
                                             <th>Agama</th>
-                                            <th>DPJP</th>
-                                            <th>Diagnosa</th>
-                                            <th>Tanggal Kunjungan Awal</th>
-                                            <th>Tanggal Kunjungan Akhir</th>
-                                            <th>Keadaan Keluar</th>
+                                            <th>Dokter</th>
+                                            <th>Diagnosis</th>
+                                            <th>Tanggal Kunjungan Pertama</th>
+                                            <th>Tanggal Kunjunga Terakhir</th>
+                                            <th>Kondisi Keluar</th>
                                             <th>Cara Keluar</th>
-                                            <th>Tahun Kunjungan Akhir</th>
+                                            <th>Tahun terkahir Kunjungan</th>
 
                                             <th>Aksi</th>
 
@@ -135,8 +135,8 @@
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle ">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a href="<?= base_url('DataPasien/EditPsasien/' . $ps['id_pasien']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                            <a href="<?= base_url('DataPasien/DeletePasien/' . $ps['id_pasien']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
+                                                            <a href="<?= base_url('DataPasien/EditPasien/' . $ps['id_pas']) ?>" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
+                                                            <a href="<?= base_url('DataPasien/DeletePasien/' . $ps['id_pas']) ?>" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -170,12 +170,12 @@
                     <div class="modal-body">
                         <form action="<?php echo base_url('DataPasien/TambahPasien') ?>" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="">No Identitas</label><br>
-                                <input id="no_identitas" placeholder="No Identitas" type="text" name="no_identitas" class="form-control " required="">
-                            </div>
-                            <div class="form-group">
                                 <label for="">Nama Pasien</label><br>
                                 <input id="nama_pasien" placeholder="Nama Pasien" type="text" name="nama_pasien" class="form-control " required="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">No RM</label><br>
+                                <input id="no_rm" placeholder="Nomor RM" type="text" name="no_rm" class="form-control " required="">
                             </div>
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label><br>

@@ -11,7 +11,7 @@
                                         <h4>Data Kunjungan</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <a class="btn btn-primary" href="<?= base_url('DataKunjungan/TambahKunjungan') ?>">Tambah Data</a>
+                                        <a class="btn btn-primary" href="<?= base_url('DataKunjungan/TambahKunjungan') ?>">Add Data</a>
                                     </div>
                                 </div>
                             </div>

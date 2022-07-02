@@ -34,6 +34,7 @@ class DataPasien extends CI_Controller
     {
         $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
         $data['pasien'] = $this->Model_admin->getpasien()->result_array();
+		
         $data['tanggal'] = $this->Model_admin->getDateChecking()->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
@@ -43,9 +44,8 @@ class DataPasien extends CI_Controller
     public function TambahPasien()
     {
         $data_pasien = array(
-            'nomor_identitas' => $this->input->post('no_identitas'),
             'nama_pasien' => $this->input->post('nama_pasien'),
-            'no_rm' => rand(000001, 999999),
+            'no_rm' => $this->input->post('no_rm'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'alamat' => $this->input->post('alamat'),
             'no_telp' => $this->input->post('no_telp'),
@@ -68,7 +68,7 @@ class DataPasien extends CI_Controller
     {
         $data = array(
             'id_pasien' => $this->input->post('id_pasien'),
-            'nomor_identitas' => $this->input->post('no_identitas'),
+			'no_rm' => $this->input->post('no_rm'),
             'nama_pasien' => $this->input->post('nama'),
             'jenis_kelamin' => $this->input->post('gender'),
             'alamat' => $this->input->post('alamat'),

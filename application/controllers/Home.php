@@ -36,8 +36,7 @@ class Home extends CI_Controller
         $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
         $data['pegawai'] = $this->db->get('tb_pegawai')->result_array();
         $data['pasien'] = $this->db->get('tb_pasien')->result_array();
-        $data['rm_aktif'] = $this->db->get_where('tb_rekammedis', array('status_rm' => 1))->result_array();
-        $data['rm_non'] = $this->db->get_where('tb_rekammedis', array('status_rm' => 0))->result_array();
+        $data['rm_aktif'] = $this->db->get('tb_rekammedis')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('home');

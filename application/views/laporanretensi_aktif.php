@@ -8,10 +8,10 @@
                             <div class="col">
                                 <div class="row ">
                                     <div class="col">
-                                        <h4>Laporan Retensi Aktif</h4>
+                                        <h4>Laporan Retensi</h4>
                                     </div>
                                     <div class="col text-right">
-                                        <a href="<?= base_url('LaporanRetensi/CetakPdf/1') ?>" class="btn btn-primary" href="">Cetak Pdf</a>
+                                        <a href="<?= base_url('LaporanRetensi/CetakPdf/1') ?>" class="btn btn-primary" href="">Create Pdf</a>
 
 
                                     </div>
@@ -24,12 +24,11 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                #
+                                                No
                                             </th>
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
                                             <th>Tanggal Kunjungan</th>
-                                            <th>Aksi</th>
 
                                         </tr>
                                     </thead>
@@ -38,18 +37,10 @@
                                         foreach ($rekam_aktif as $ra) : $no++; ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $ra['id_rm'] ?></td>
+                                                <td><?= $ra['no_rm'] ?></td>
                                                 <td><?= $ra['nama_pasien'] ?></td>
                                                 <td><?= $ra['tgl_periksa'] ?></td>
-                                                <td class="text-center">
-                                                    <div class="dropdown">
-                                                        <a href="#" data-toggle="dropdown" class="btn btn-primary  dropdown-toggle w-75 ">Options</a>
-                                                        <div class="dropdown-menu">
-                                                            <a onclick="" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                                            <a href="" class="dropdown-item has-icon"><i class="far fa-trash-alt"></i> Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
+
                                             </tr>
                                         <?php endforeach; ?>
 

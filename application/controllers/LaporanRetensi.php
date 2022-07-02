@@ -34,7 +34,8 @@ class LaporanRetensi extends CI_Controller
     public function index()
     {
         $data['notifikasi'] = $this->db->get_where('tb_notifikasi', array('status_notif' => 0))->result_array();
-        $data['rekam_aktif'] = $this->Model_admin->getRetensi(1)->result_array();
+        $data['rekam_aktif'] = $this->Model_admin->getRetensi()->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('laporanretensi_aktif', $data);
@@ -53,11 +54,11 @@ class LaporanRetensi extends CI_Controller
     {
 
         if ($status == 0) {
-            $this->data['retensi'] = array_chunk($this->Model_admin->getRetensi(0)->result_array(), 10);
+            $this->data['retensi'] = array_chunk($this->Model_admin->getRetensi()->result_array(), 10);
             $this->data['title_pdf'] = 'Laporan Retensi Rekam Medis Tidak Aktif ';
         } elseif ($status == 1) {
-            $this->data['retensi'] = array_chunk($this->Model_admin->getRetensi(1)->result_array(), 10);
-            $this->data['title_pdf'] = 'Laporan Retensi Rekam Medis Aktif ';
+            $this->data['retensi'] = array_chunk($this->Model_admin->getRetensi()->result_array(), 10);
+            $this->data['title_pdf'] = 'Laporan Retensi Rekam Medis ';
         }
 
         $this->load->library('pdfgenerator');

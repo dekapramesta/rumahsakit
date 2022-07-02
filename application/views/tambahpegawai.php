@@ -35,29 +35,39 @@
                                          <span class="ml-2 text-danger"><b><?= form_error('nama_lengkap') ?></b> </span>
 
                                      </div>
+                                     <div class="form-group col-md-6 col-12">
+                                         <label>NIP</label>
+                                         <input name="nip" type="text" class="form-control">
+                                         <span class="ml-2 text-danger"><b><?= form_error('nip') ?></b> </span>
+
+                                     </div>
+
+                                 </div>
+                                 <div class="row">
+
                                      <div class="form-group  col-md-6 col-12">
                                          <label>Email </label>
                                          <input name="email" type="email" class="form-control">
                                          <span class="ml-2 text-danger"><b><?= form_error('email') ?></b> </span>
 
                                      </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label>No Hp</label>
-                                     <input name="no_hp" type="number" class="form-control">
-                                     <span class="ml-2 text-danger"><b><?= form_error('no_hp') ?></b> </span>
 
-                                 </div>
-                                 <!-- <div class="form-group mb-0">
+                                     <div class="form-group col-md-6 col-12">
+                                         <label>No Hp</label>
+                                         <input name="no_hp" type="number" class="form-control">
+                                         <span class="ml-2 text-danger"><b><?= form_error('no_hp') ?></b> </span>
+
+                                     </div>
+                                     <!-- <div class="form-group mb-0">
                                      <label>Almat</label>
                                      <textarea name="alamat" class="form-control" required=""></textarea>
                                      <span class="ml-2 text-danger"><b><?= form_error('alamat') ?></b> </span>
 
                                  </div> -->
-                             </div>
-                             <div class="card-footer text-right">
-                                 <button class="btn btn-primary">Submit</button>
-                             </div>
+                                 </div>
+                                 <div class="card-footer text-right">
+                                     <button class="btn btn-primary">Submit</button>
+                                 </div>
                          </form>
                      </div>
                  </div>

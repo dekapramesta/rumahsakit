@@ -69,6 +69,8 @@ class DataPegawai extends CI_Controller
         $this->form_validation->set_rules('confirm_password', 'Konfirmasi Password', 'required|matches[password]');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|is_unique[tb_pegawai.nama_lengkap]');
         $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('nip', 'nip', 'required');
+
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
 
 
@@ -89,6 +91,7 @@ class DataPegawai extends CI_Controller
                     'id_user' => $id_user,
                     'nama_lengkap' => $this->input->post('nama_lengkap'),
                     'email' => $this->input->post('email'),
+                    'nip' => $this->input->post('nip'),
                     'no_hp' => $this->input->post('no_hp'),
                 );
                 $this->Model_auth->daftar_user($data_profile, 'tb_pegawai');
@@ -121,6 +124,7 @@ class DataPegawai extends CI_Controller
                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email'),
                 'no_hp' => $this->input->post('no_hp'),
+                'nip' => $this->input->post('nip')
             );
 
             $where_peg = array(
